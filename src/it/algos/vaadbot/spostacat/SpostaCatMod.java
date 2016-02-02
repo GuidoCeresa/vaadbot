@@ -28,11 +28,11 @@ public class SpostaCatMod extends SpostaMod {
     }// end of basic constructor
 
 
-    protected void esegue(NavPlaceholder placeholder) {
-        SpostaCatForm form = new SpostaCatForm();
-        UI video = placeholder.getUI();
-        video.addWindow(form);
-    }// end of method
+//    protected void esegue(NavPlaceholder placeholder) {
+//        SpostaCatForm form = new SpostaCatForm();
+//        UI video = placeholder.getUI();
+//        video.addWindow(form);
+//    }// end of method
 
 
     protected SpostaForm createForm() {

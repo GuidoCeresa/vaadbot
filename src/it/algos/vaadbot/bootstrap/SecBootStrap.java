@@ -1,6 +1,7 @@
 package it.algos.vaadbot.bootstrap;
 
 import it.algos.webbase.web.bootstrap.SecurityBootStrap;
+import it.algos.webbase.web.lib.LibSecurity;
 
 import javax.servlet.ServletContextEvent;
 
@@ -17,6 +18,10 @@ import javax.servlet.ServletContextEvent;
   * 2) - deve essere cancellata come listener del file web.WEB-INF.web.xml
   */
 public class SecBootStrap extends SecurityBootStrap {
+
+    private String botRole = "bot";
+    private String botName = "gacbot";
+
 
     /**
      * Executed on container startup
@@ -36,11 +41,8 @@ public class SecBootStrap extends SecurityBootStrap {
     public void contextInitialized(ServletContextEvent contextEvent) {
         super.contextInitialized(contextEvent);
 
-        // controlla e crea eventuali ruoli specifici
-//        super.creaRuolo("nuovoRuolo");
-
-        // controlla e crea utenti abilitati
-//        super.creaUtente("nickname", "password", "nuovoRuolo");
+        this.creaRuoli();
+        this.creaUtenti();
     }// end of method
 
 
@@ -51,6 +53,23 @@ public class SecBootStrap extends SecurityBootStrap {
      */
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
+    }// end of method
+
+    /**
+     * Crea una serie di ruoli
+     * <p/>
+     * Alcuni generali controlla se esistono (dovrebbero esserci) e li crea solo se mancano (la prima volta)
+     * Alcuni specifici di questa applicazione e li crea
+     */
+    private void creaRuoli() {
+        this.creaRuolo(botRole);
+    }// end of method
+
+    /**
+     * Crea una serie di utenti
+     */
+    private void creaUtenti() {
+        LibSecurity.creaUtente(botName, "", botRole);
     }// end of method
 
 }// end of bootstrap class

@@ -2,15 +2,14 @@ package it.algos.vaadbot.spostavoce;
 
 import com.vaadin.ui.*;
 import it.algos.vaad.wiki.Api;
+import it.algos.vaad.wiki.LibWiki;
 import it.algos.vaad.wiki.TipoRisultato;
 import it.algos.vaad.wiki.request.QueryMove;
-import it.algos.vaad.wiki.request.QueryWriteTitle;
 import it.algos.vaadbot.sposta.SpostaForm;
 import it.algos.webbase.web.dialog.ConfirmDialog;
 import it.algos.webbase.web.field.CheckBoxField;
 import it.algos.webbase.web.field.PasswordField;
 import it.algos.webbase.web.field.TextField;
-import it.algos.webbase.web.lib.LibText;
 
 import java.util.ArrayList;
 
@@ -32,8 +31,6 @@ public class SpostaVoceForm extends SpostaForm {
     private PasswordField passField;
     private CheckBoxField rememberField;
     private Table table;
-    private String LAR_FORM = "1200px";
-    private String LAR_FIELD = "500px";
     private Label bottomLabel;
     private CheckBoxField namespace;
     private CheckBoxField pagina;
@@ -55,6 +52,7 @@ public class SpostaVoceForm extends SpostaForm {
 
         layout = new HorizontalLayout();
         layout.setSpacing(true);
+        layout.setHeight(ALT_FORM);
         layout.setWidth(LAR_FORM);
         layout.addComponent(creaSinistra());
         layout.addComponent(creaDestra());
@@ -75,7 +73,7 @@ public class SpostaVoceForm extends SpostaForm {
         // creates the table
         table = new Table("Puntano qui:");
         this.table.setWidth("100%");
-        this.table.setHeight("420px");
+        this.table.setHeight("300px");
 
         table.addContainerProperty("", String.class, null);
         table.setColumnHeaderMode(Table.ColumnHeaderMode.HIDDEN);
@@ -299,7 +297,12 @@ public class SpostaVoceForm extends SpostaForm {
                     modificaLink();
                 }// end of if cycle
             }// end of if cycle
-        }// end of if cycle
+        } else {
+            if (isLinks()) {
+                modificaLink();
+            }// end of if cycle
+        }// end of if/else cycle
+
     }// end of method
 
     private boolean spostaPagina() {
@@ -317,25 +320,17 @@ public class SpostaVoceForm extends SpostaForm {
 
     private void modificaLink() {
         ArrayList<String> listaTitles = listaPagine();
-        String oldTitle = getOldTitle();
-        String newTitle = getNewTitle();
-        String oldLink = "[[" + oldTitle;
-        String newLink = "[[" + newTitle;
+        String oldLink = getOldTitle();
+        String newLink = getNewTitle();
         String oldTesto;
         String newTesto;
         String summary = "GacBot fix wlink";
-        String tagPar = ")";
-        String tagPipe = "|";
-
-//        if (newLink.endsWith(tagPar)) {
-//            newLink += tagPipe;
-//        }// end of if cycle
 
         if (listaTitles != null && listaTitles.size() > 0) {
             for (String title : listaTitles) {
                 oldTesto = Api.leggeVoce(title);
-                newTesto = LibText.sostituisce(oldTesto, oldLink, newLink);
-                new QueryWriteTitle(title, newTesto, summary);
+                newTesto = LibWiki.modificaLink(oldTesto, oldLink, newLink);
+                Api.scriveVoce(title, newTesto, summary);
             }// end of for cycle
         }// end of if cycle
 

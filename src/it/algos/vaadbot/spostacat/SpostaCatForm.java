@@ -34,8 +34,6 @@ public class SpostaCatForm extends SpostaForm {
     private PasswordField passField;
     private CheckBoxField rememberField;
     private Table table;
-    private String LAR_FORM = "1200px";
-    private String LAR_FIELD = "500px";
     private Label bottomLabel;
     private CheckBoxField namespace;
     private CheckBoxField pagina;
@@ -58,6 +56,7 @@ public class SpostaCatForm extends SpostaForm {
 
         layout = new HorizontalLayout();
         layout.setSpacing(true);
+        layout.setHeight(ALT_FORM);
         layout.setWidth(LAR_FORM);
         layout.addComponent(creaSinistra());
         layout.addComponent(creaDestra());
@@ -77,7 +76,7 @@ public class SpostaCatForm extends SpostaForm {
         // creates the table
         table = new Table("Pagine nella categoria:");
         this.table.setWidth("100%");
-        this.table.setHeight("420px");
+        this.table.setHeight("320px");
 
         table.addContainerProperty("", String.class, null);
         table.setColumnHeaderMode(Table.ColumnHeaderMode.HIDDEN);
@@ -311,7 +310,7 @@ public class SpostaCatForm extends SpostaForm {
         String newLink = "[[" + CAT + newTitle;
         String oldTesto;
         String newTesto;
-        String summary = "GacBot fix wlink";
+        String summary = "GacBot fix cat";
         String tagPar = ")";
         String tagPipe = "|";
 

@@ -45,9 +45,7 @@ public class VaadbotBootStrap extends ABootStrap {
 
         // eventuali modifiche ai flag generali di regolazione
         AlgosApp.USE_SECURITY = true;
-//        AlgosApp.USE_LOG = true;
-//        AlgosApp.USE_VERS = false;
-//        AlgosApp.USE_PREF = false;
+        AlgosApp.USE_PREF = false;
     }// end of method
 
 

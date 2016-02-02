@@ -1,13 +1,13 @@
 package it.algos.vaadbot.sposta;
 
 import com.vaadin.data.Item;
-import com.vaadin.server.Resource;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import it.algos.vaadbot.spostavoce.SpostaVoceForm;
 import it.algos.webbase.web.menu.AMenuBar;
 import it.algos.webbase.web.module.ModulePop;
-import it.algos.webbase.web.navigator.NavPlaceholder;
 
 import java.util.List;
 
@@ -19,39 +19,45 @@ public abstract class SpostaMod extends ModulePop {
 
     protected SpostaForm form;
 
+    /**
+     * Costruttore senza parametri
+     * <p/>
+     * Invoca la superclasse passando i parametri:
+     * (obbligatorio) la Entity specifica
+     * (facoltativo) etichetta del menu (se manca usa il nome della Entity)
+     * (facoltativo) icona del menu (se manca usa un'icona standard)
+     */
     public SpostaMod(String menuAddress) {
         super(null, menuAddress);
         setCompositionRoot(tablePortal);
-    }// end of basic constructor
+    }// end of constructor
+
+    /**
+     * Crea i sottomenu specifici del modulo
+     * <p/>
+     * Invocato dal metodo AlgosUI.addModulo()
+     * Sovrascritto dalla sottoclasse
+     *
+     * @param menuItem principale del modulo
+     */
+    @Override
+    public void addSottoMenu(MenuBar.MenuItem menuItem) {
+        addCommandDialog(menuItem);
+    }// end of method
 
 
     /**
      * Create the MenuBar Item for this module
-     * <p>
+     * <p/>
      * Invocato dal metodo AlgosUI.creaMenu()
      * PUO essere sovrascritto dalla sottoclasse
-     *
-     * @param menuBar     a cui agganciare il menuitem
-     * @param placeholder in cui visualizzare il modulo
-     * @param icon        del menuitem
-     * @return menuItem appena creato
      */
-    protected MenuBar.MenuItem createMenuItem(final MenuBar menuBar, final NavPlaceholder placeholder, Resource icon) {
-        MenuBar.MenuItem menuItem;
-
-        menuItem = menuBar.addItem(getMenuAddress(), icon, new MenuBar.Command() {
+    private void addCommandDialog(MenuBar.MenuItem menuItem) {
+        menuItem.addItem("Dialogo", FontAwesome.COG, new MenuBar.Command() {
             public void menuSelected(MenuBar.MenuItem selectedItem) {
-                placeholder.setContent(null);
-                deselezionaAllItemButOne(menuBar, selectedItem);
-                esegue(placeholder);
+                esegue();
             }// end of inner method
         });// end of anonymous inner class
-
-        menuItem.setStyleName(AMenuBar.MENU_DISABILITATO);
-
-        super.menuItem = menuItem;
-
-        return menuItem;
     }// end of method
 
 
@@ -72,7 +78,14 @@ public abstract class SpostaMod extends ModulePop {
         }// end of if cycle
     }// end of method
 
-    protected void esegue(NavPlaceholder placeholder) {
+    protected void esegue() {
+        SpostaForm form = createForm();
+        UI video = this.getUI();
+
+        if (video != null&&form!=null) {
+            video.addWindow(form);
+        }// end of if cycle
+
     }// end of method
 
 

@@ -7,7 +7,13 @@ import it.algos.webbase.web.dialog.ConfirmDialog;
  * .
  */
 public abstract class SpostaForm extends ConfirmDialog {
+
+    protected String ALT_FORM = "500px";
+    protected String LAR_FORM = "1000px";
+    protected String LAR_FIELD = "500px";
+
     public SpostaForm(Listener closeListener) {
         super(closeListener);
-    }
-}
+    }// end of constructor
+
+}// end of class

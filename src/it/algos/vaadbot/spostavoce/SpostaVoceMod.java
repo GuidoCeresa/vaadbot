@@ -15,16 +15,28 @@ public class SpostaVoceMod extends SpostaMod {
     public static String MENU_ADDRESS = "Sposta Voce";
 
 
+    /**
+     * Costruttore senza parametri
+     * <p/>
+     * Invoca la superclasse passando i parametri:
+     * (obbligatorio) la Entity specifica
+     * (facoltativo) etichetta del menu (se manca usa il nome della Entity)
+     * (facoltativo) icona del menu (se manca usa un'icona standard)
+     */
     public SpostaVoceMod() {
         super(MENU_ADDRESS);
-    }// end of basic constructor
+    }// end of constructor
+
+//    public SpostaVoceMod() {
+//        super(MENU_ADDRESS);
+//    }// end of basic constructor
 
 
-    protected void esegue(NavPlaceholder placeholder) {
-        SpostaVoceForm form = new SpostaVoceForm();
-        UI video = placeholder.getUI();
-        video.addWindow(form);
-    }// end of method
+//    protected void esegue(NavPlaceholder placeholder) {
+//        SpostaVoceForm form = new SpostaVoceForm();
+//        UI video = placeholder.getUI();
+//        video.addWindow(form);
+//    }// end of method
 
     protected SpostaForm createForm() {
         return new SpostaVoceForm();
