@@ -4,9 +4,7 @@
       <root url="file://$PROJECT_DIR$/../vaad/out/artifacts/vaad_jar" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/../vaad/src" />
-    </SOURCES>
+    <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/../vaad/out/artifacts/vaad_jar" recursive="false" />
   </library>
 </component>

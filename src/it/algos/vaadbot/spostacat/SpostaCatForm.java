@@ -2,10 +2,6 @@ package it.algos.vaadbot.spostacat;
 
 import com.vaadin.ui.*;
 import it.algos.vaad.wiki.Api;
-import it.algos.vaad.wiki.TipoRisultato;
-import it.algos.vaad.wiki.request.QueryCat;
-import it.algos.vaad.wiki.request.QueryMove;
-import it.algos.vaad.wiki.request.QueryWriteTitle;
 import it.algos.vaadbot.sposta.SpostaForm;
 import it.algos.webbase.web.dialog.ConfirmDialog;
 import it.algos.webbase.web.field.CheckBoxField;
@@ -176,7 +172,7 @@ public class SpostaCatForm extends SpostaForm {
         }// end of if cycle
 
         if (!title.equals("")) {
-            listaTitles=Api.leggeTitlesCategoria(title);
+            listaTitles = Api.leggeCatTitles(title);
         }// end of if cycle
 
         return listaTitles;
@@ -294,8 +290,7 @@ public class SpostaCatForm extends SpostaForm {
         String from = CAT + this.getOldTitle();
         String to = CAT + this.getNewTitle();
 
-        QueryMove query = new QueryMove(from, to);
-        if (query.getRisultato() == TipoRisultato.spostata) {
+        if (Api.sposta(from, to)) {
             spostata = true;
         }// end of if cycle
 
@@ -322,7 +317,7 @@ public class SpostaCatForm extends SpostaForm {
             for (String title : listaTitles) {
                 oldTesto = Api.leggeVoce(title);
                 newTesto = LibText.sostituisce(oldTesto, oldLink, newLink);
-                new QueryWriteTitle(title, newTesto, summary);
+                Api.scriveVoce(title, newTesto, summary);
             }// end of for cycle
         }// end of if cycle
 
