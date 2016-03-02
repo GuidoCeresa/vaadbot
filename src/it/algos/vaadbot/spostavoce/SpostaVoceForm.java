@@ -310,13 +310,13 @@ public class SpostaVoceForm extends SpostaForm {
         String from = this.getOldTitle();
         String to = this.getNewTitle();
 
-        QueryMove query = new QueryMove(from, to);
-        if (query.getRisultato() == TipoRisultato.spostata) {
+        if (Api.sposta(from, to)) {
             spostata = true;
         }// end of if cycle
 
         return spostata;
     }// end of method
+
 
     private void modificaLink() {
         ArrayList<String> listaTitles = listaPagine();
